@@ -77,7 +77,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hero customization */
 .hero-section {
-  background: linear-gradient(rgba(63, 94, 77, 0.85), rgba(43, 43, 42, 0.85)), url('../images/hero-bg.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, rgba(14, 116, 144, 0.85) 0%, rgba(30, 41, 59, 0.9) 100%), url('../images/hero-bg.jpg') center/cover no-repeat;
   color: #fff;
   padding: 8rem 0;
   border-bottom: 4px solid var(--color-secondary);

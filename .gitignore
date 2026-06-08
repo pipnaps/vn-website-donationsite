@@ -31,3 +31,5 @@ package-lock.json
 /dist
 /build
 raw_assets/
+.firebase/
+
