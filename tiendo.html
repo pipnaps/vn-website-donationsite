@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiến Độ Công Trình | Quỹ Xây Dựng Giáo Xứ</title>
+  <meta name="description" content="Hình ảnh và nhật ký thi công thực tế của công trình xây dựng thánh đường Giáo xứ Việt Nam. Minh bạch và cập nhật thường xuyên.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <div class="logo-icon">†</div>
+        <div class="logo-text">
+          <span class="logo-title">Giáo Xứ Việt Nam</span>
+          <span class="logo-sub">Ban Xây Dựng & Phát Triển</span>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="tiendo.html" class="nav-link active">Tiến Độ</a>
+        <a href="donggop.html" class="nav-link">Đóng Góp</a>
+        <a href="lienhe.html" class="nav-link">Liên Hệ</a>
+      </nav>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </header>
+
+  <!-- Section Header -->
+  <section class="section bg-white" style="padding: 4rem 0 2rem 0; text-align: center;">
+    <div class="container">
+      <h2>Nhật Ký Thi Công & Tiến Độ</h2>
+      <p style="max-width: 600px; margin: 1rem auto 0 auto;">Cập nhật hình ảnh thực tế từ công trường xây dựng nhà thờ mới. Tiến độ được ghi lại minh bạch qua từng giai đoạn thi công.</p>
+    </div>
+  </section>
+
+  <!-- Gallery Timeline Section -->
+  <section class="section">
+    <div class="container">
+      <div id="timeline-container" class="timeline">
+        <!-- Will be populated dynamically by JS from gallery.json -->
+        <p style="text-align: center; grid-column: 1/-1;">Đang tải hình ảnh tiến độ...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Popup -->
+  <div id="imageLightbox" class="lightbox">
+    <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightboxImage" src="" alt="Zoom Image">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <h3>Giáo Xứ Việt Nam</h3>
+        <p>Ngôi nhà chung của cộng đoàn dân Chúa. Đồng hành và hiệp thông trong tình yêu Kitô.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Liên Kết</h4>
+        <ul>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="tiendo.html">Tiến Độ</a></li>
+          <li><a href="donggop.html">Đóng Góp</a></li>
+          <li><a href="lienhe.html">Liên Hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Liên Hệ</h4>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 0.5rem;">📍 123 Đường Công Giáo, Phường Mục Vụ, Việt Nam</p>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 0.5rem;">📞 +84 123 456 789</p>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">✉️ lienhe@giaoxuvietnam.org</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Giáo Xứ Việt Nam. Ban Xây Dựng Nhà Thờ. Bảo lưu mọi quyền.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.querySelector('nav');
+      if (nav.style.display === 'flex') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '80px';
+        nav.style.left = '0';
+        nav.style.width = '100%';
+        nav.style.backgroundColor = '#fff';
+        nav.style.padding = '1.5rem';
+        nav.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+        nav.style.gap = '1rem';
+      }
+    }
+
+    // Dynamic Gallery Loading
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('assets/data/gallery.json')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('timeline-container');
+          
+          if (!data || data.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--color-text-muted);">Hiện chưa có hình ảnh tiến độ nào được đăng tải.</p>';
+            return;
+          }
+          
+          // Clear loading text
+          container.innerHTML = '';
+          
+          data.forEach((item, index) => {
+            const isLeft = index % 2 === 0;
+            const itemClass = isLeft ? 'timeline-item left' : 'timeline-item right';
+            
+            // Format dates neatly (e.g. YYYY-MM-DD to DD/MM/YYYY)
+            let displayDate = item.date;
+            if (item.date) {
+              const parts = item.date.split('-');
+              if (parts.length === 3) {
+                displayDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+              }
+            }
+            
+            const timelineItem = document.createElement('div');
+            timelineItem.className = itemClass;
+            
+            timelineItem.innerHTML = `
+              <div class="timeline-content">
+                <div class="timeline-date">${displayDate}</div>
+                <img src="${item.src}" alt="${item.caption}" class="timeline-img" onclick="openLightbox('${item.src}')">
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--color-primary);">${item.caption}</h3>
+              </div>
+            `;
+            
+            container.appendChild(timelineItem);
+          });
+        })
+        .catch(err => {
+          console.error('Lỗi khi tải dữ liệu tiến độ:', err);
+          const container = document.getElementById('timeline-container');
+          container.innerHTML = '<p style="text-align: center; color: var(--color-primary-dark);">Không thể tải hình ảnh tiến độ. Vui lòng kiểm tra lại sau.</p>';
+        });
+    });
+
+    // Lightbox Controls
+    function openLightbox(src) {
+      const lightbox = document.getElementById('imageLightbox');
+      const lightboxImg = document.getElementById('lightboxImage');
+      lightbox.style.display = 'block';
+      lightboxImg.src = src;
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('imageLightbox');
+      lightbox.style.display = 'none';
+    }
+    
+    // Close lightbox on escape key or clicking background
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+    
+    document.getElementById('imageLightbox').addEventListener('click', function(event) {
+      if (event.target === this) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
