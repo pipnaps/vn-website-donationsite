@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiến Độ Công Trình | Quỹ Xây Dựng Giáo Xứ</title>
-  <meta name="description" content="Hình ảnh và nhật ký thi công thực tế của công trình xây dựng thánh đường Giáo xứ Việt Nam. Minh bạch và cập nhật thường xuyên.">
+  <title>Tiến Độ Công Trình | Đan Viện Biển Đức Thiên Hòa</title>
+  <meta name="description" content="Hình ảnh thi công và kế hoạch xây dựng nhà nguyện mới tại Đan viện Biển Đức Thiên Hòa, Đắk Lắk. Minh bạch và cập nhật thường xuyên.">
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Styling for the schedule table */
+    .schedule-wrapper {
+      margin-bottom: 4rem;
+    }
+    .badge-status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 20px;
+      background-color: var(--color-accent-light);
+      color: var(--color-primary-dark);
+    }
+  </style>
 </head>
 <body>
 
@@ -15,8 +30,8 @@
       <div class="logo">
         <div class="logo-icon">†</div>
         <div class="logo-text">
-          <span class="logo-title">Giáo Xứ Việt Nam</span>
-          <span class="logo-sub">Ban Xây Dựng & Phát Triển</span>
+          <span class="logo-title">Đan Viện Thiên Hòa</span>
+          <span class="logo-sub">Biển Đức — Giáo Phận Ban Mê Thuột</span>
         </div>
       </div>
       <nav>
@@ -32,14 +47,39 @@
   <!-- Section Header -->
   <section class="section bg-white" style="padding: 4rem 0 2rem 0; text-align: center;">
     <div class="container">
-      <h2>Nhật Ký Thi Công & Tiến Độ</h2>
-      <p style="max-width: 600px; margin: 1rem auto 0 auto;">Cập nhật hình ảnh thực tế từ công trường xây dựng nhà thờ mới. Tiến độ được ghi lại minh bạch qua từng giai đoạn thi công.</p>
+      <h2>Tiến Độ & Kế Hoạch Thi Công</h2>
+      <p style="max-width: 600px; margin: 1rem auto 0 auto;">Cập nhật hình ảnh thực tế từ công trường và bảng kế hoạch triển khai xây dựng nhà nguyện mới của Đan viện.</p>
+    </div>
+  </section>
+
+  <!-- Schedule Section (Parsed from Excel) -->
+  <section class="section bg-cream" style="padding-top: 1rem; padding-bottom: 2rem;">
+    <div class="container schedule-wrapper">
+      <h3 style="color: var(--color-primary-dark); font-family: var(--font-serif); margin-bottom: 1.5rem; text-align: center;">Kế Hoạch Triển Khai Xây Dựng</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 100px;">Giai Đoạn</th>
+              <th>Nội Dung Công Việc</th>
+              <th style="width: 180px;">Thời Gian Dự Kiến</th>
+              <th style="width: 180px;">Trạng Thái</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleTableBody">
+            <tr>
+              <td colspan="4" style="text-align: center; color: var(--color-text-muted);">Đang tải kế hoạch thi công...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
   <!-- Gallery Timeline Section -->
-  <section class="section">
+  <section class="section bg-white">
     <div class="container">
+      <h3 style="color: var(--color-primary-dark); font-family: var(--font-serif); margin-bottom: 3rem; text-align: center;">Hình Ảnh Thực Tế Từ Công Trường</h3>
       <div id="timeline-container" class="timeline">
         <!-- Will be populated dynamically by JS from gallery.json -->
         <p style="text-align: center; grid-column: 1/-1;">Đang tải hình ảnh tiến độ...</p>
@@ -57,8 +97,8 @@
   <footer>
     <div class="container footer-grid">
       <div class="footer-brand">
-        <h3>Giáo Xứ Việt Nam</h3>
-        <p>Ngôi nhà chung của cộng đoàn dân Chúa. Đồng hành và hiệp thông trong tình yêu Kitô.</p>
+        <h3>Đan Viện Biển Đức Thiên Hòa</h3>
+        <p>Biển Đức (OSB) — Giáo Phận Ban Mê Thuột. Đời sống chiêm niệm, lao động và cầu nguyện.</p>
       </div>
       <div class="footer-links">
         <h4>Liên Kết</h4>
@@ -70,14 +110,14 @@
         </ul>
       </div>
       <div class="footer-contact">
-        <h4>Liên Hệ</h4>
-        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 0.5rem;">📍 123 Đường Công Giáo, Phường Mục Vụ, Việt Nam</p>
-        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 0.5rem;">📞 +84 123 456 789</p>
-        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">✉️ lienhe@giaoxuvietnam.org</p>
+        <h4>Địa Chỉ Đan Viện</h4>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 0.5rem;">📍 Thôn 5, Xã Tân Tiến, Huyện Krông Pắc, Tỉnh Đắk Lắk, Việt Nam</p>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 0.5rem;">📞 +84 908 802 831</p>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">✉️ thienhoaosb@yahoo.com</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Giáo Xứ Việt Nam. Ban Xây Dựng Nhà Thờ. Bảo lưu mọi quyền.</p>
+      <p>&copy; 2026 Đan Viện Biển Đức Thiên Hòa. Bảo lưu mọi quyền.</p>
     </div>
   </footer>
 
@@ -100,8 +140,33 @@
       }
     }
 
-    // Dynamic Gallery Loading
+    // Load Schedule data and Photo Gallery data
     document.addEventListener('DOMContentLoaded', function() {
+      // 1. Load Schedule from schedule.json (parsed from Excel)
+      fetch('assets/data/schedule.json')
+        .then(response => response.json())
+        .then(data => {
+          const sBody = document.getElementById('scheduleTableBody');
+          sBody.innerHTML = '';
+          
+          data.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td style="text-align: center; font-weight: bold; color: var(--color-primary-dark);">GĐ ${item.stage}</td>
+              <td><strong>${item.task}</strong></td>
+              <td>${item.time}</td>
+              <td><span class="badge-status">${item.status}</span></td>
+            `;
+            sBody.appendChild(tr);
+          });
+        })
+        .catch(err => {
+          console.error('Lỗi khi tải lịch trình thi công:', err);
+          document.getElementById('scheduleTableBody').innerHTML = 
+            '<tr><td colspan="4" style="text-align: center; color: var(--color-primary);">Không thể tải lịch trình kế hoạch thi công.</td></tr>';
+        });
+
+      // 2. Load Gallery
       fetch('assets/data/gallery.json')
         .then(response => response.json())
         .then(data => {
@@ -112,14 +177,12 @@
             return;
           }
           
-          // Clear loading text
           container.innerHTML = '';
           
           data.forEach((item, index) => {
             const isLeft = index % 2 === 0;
             const itemClass = isLeft ? 'timeline-item left' : 'timeline-item right';
             
-            // Format dates neatly (e.g. YYYY-MM-DD to DD/MM/YYYY)
             let displayDate = item.date;
             if (item.date) {
               const parts = item.date.split('-');
@@ -143,9 +206,9 @@
           });
         })
         .catch(err => {
-          console.error('Lỗi khi tải dữ liệu tiến độ:', err);
+          console.error('Lỗi khi tải hình ảnh tiến độ:', err);
           const container = document.getElementById('timeline-container');
-          container.innerHTML = '<p style="text-align: center; color: var(--color-primary-dark);">Không thể tải hình ảnh tiến độ. Vui lòng kiểm tra lại sau.</p>';
+          container.innerHTML = '<p style="text-align: center; color: var(--color-primary-dark);">Không thể tải hình ảnh tiến độ.</p>';
         });
     });
 
@@ -162,7 +225,6 @@
       lightbox.style.display = 'none';
     }
     
-    // Close lightbox on escape key or clicking background
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         closeLightbox();
