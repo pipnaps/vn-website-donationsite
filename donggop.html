@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đóng Góp & Ủng Hộ | Đan Viện Biển Đức Thiên Hòa</title>
+  <meta name="description" content="Thông tin tài khoản ngân hàng nhận quyên góp và danh sách cập nhật các ân nhân đóng góp quỹ xây dựng Đan viện Biển Đức Thiên Hòa.">
+  <!-- Bootstrap 5 & Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Custom Styling -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <style>
+    .bank-card {
+      border: 1px solid var(--color-border);
+      background-color: var(--color-card-bg);
+      border-top: 4px solid var(--color-primary);
+    }
+    .vietqr-image {
+      max-width: 200px;
+      border: 1px solid var(--color-border);
+      padding: 0.5rem;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <nav class="navbar navbar-expand-md navbar-custom sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <i class="bi bi-cross text-primary"></i>
+        <span>Đan Viện Thiên Hòa</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto gap-2 mt-3 mt-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Trang Chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tiendo.html">Tiến Độ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="donggop.html">Đóng Góp</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lienhe.html">Liên Hệ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Title Section -->
+  <section class="py-5 text-center bg-white border-bottom">
+    <div class="container">
+      <h1 class="section-title h2 text-primary">Đóng Góp Xây Dựng Đan Viện</h1>
+      <p class="text-muted col-lg-8 mx-auto">Mọi sự đóng góp và ủng hộ tài chính của quý vị đều được chuyển đến tài khoản chính thức của Đan Viện dưới sự quản lý minh bạch.</p>
+    </div>
+  </section>
+
+  <!-- Core Content Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        
+        <!-- Left: Banking Info and Real QR scan -->
+        <div class="col-lg-4">
+          <div class="card bank-card p-4 text-center">
+            <h3 class="h4 text-primary font-serif mb-3">Chuyển Khoản Ngân Hàng</h3>
+            <p class="small text-muted mb-4">Quét mã VietQR dưới đây bằng ứng dụng ngân hàng di động của bạn để thực hiện giao dịch nhanh chóng.</p>
+            
+            <img src="assets/images/banking_qr.jpg" class="vietqr-image img-fluid mx-auto mb-4" alt="Mã QR Chuyển Khoản Vietcombank">
+            
+            <div class="text-start border-top pt-3">
+              <div class="d-flex justify-content-between mb-2">
+                <span class="small text-muted">Ngân hàng:</span>
+                <strong class="text-dark">Vietcombank</strong>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span class="small text-muted">Chủ tài khoản:</span>
+                <strong class="text-dark">HUYNH HOANG NAM</strong>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span class="small text-muted">Số tài khoản:</span>
+                <strong class="text-dark">1908 8028 31</strong>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="small text-muted">Nội dung chuyển:</span>
+                <strong class="text-dark">Ung ho xay dung nha tho</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Donor listings table (gracefully handle empty list) -->
+        <div class="col-lg-8">
+          <div class="card card-custom p-4 p-md-5">
+            <h3 class="h4 text-primary font-serif mb-4">Danh Sách Ân Nhân Đóng Góp</h3>
+            
+            <!-- Controls -->
+            <div class="row g-3 align-items-center justify-content-between mb-4" id="tableControls" style="display:none;">
+              <div class="col-sm-6 col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search text-muted"></i></span>
+                  <input type="text" id="tableSearch" class="form-control border-start-0" placeholder="Tìm kiếm tên, ghi chú..." onkeyup="filterTable()">
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="d-flex align-items-center gap-2">
+                  <label for="pageSize" class="small text-muted text-nowrap mb-0">Hiển thị:</label>
+                  <select id="pageSize" class="form-select form-select-sm" onchange="changePageSize()">
+                    <option value="10" selected>10 hàng</option>
+                    <option value="25">25 hàng</option>
+                    <option value="50">50 hàng</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive" id="tableWrapper" style="display:none;">
+              <table class="table align-middle table-hover border-top">
+                <thead class="table-light">
+                  <tr>
+                    <th onclick="sortTable(0)" style="cursor:pointer;">Ngày Đóng Góp <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-0"></i></th>
+                    <th onclick="sortTable(1)" style="cursor:pointer;">Ân Nhân / Họ và Tên <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-1"></i></th>
+                    <th onclick="sortTable(2)" style="cursor:pointer; width: 160px;">Số Tiền (VNĐ) <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-2"></i></th>
+                    <th>Ghi Chú</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4" id="tablePagination" style="display:none;">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Alert fallback if donations.csv is missing or empty -->
+            <div class="alert alert-warning d-flex align-items-center gap-3 p-4 border-0 rounded-0" id="fallbackAlert">
+              <i class="bi bi-info-circle-fill text-warning fs-3"></i>
+              <div>
+                <h6 class="alert-heading fw-bold mb-1">Danh sách đang được cập nhật</h6>
+                <p class="small text-muted mb-0">Đan viện đang xử lý số liệu danh sách đóng góp từ sổ cái và tệp dữ liệu gốc. Thông tin ân nhân ủng hộ sẽ được tự động hiển thị tại đây ngay sau khi hoàn thành cập nhật.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-custom py-5 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <h4 class="mb-3">Đan Viện Biển Đức Thiên Hòa</h4>
+          <p class="small text-muted-custom">Đan viện chiêm niệm Biển Đức (OSB) trực thuộc Giáo phận Ban Mê Thuột. Sứ mạng hiệp thông, cầu nguyện và lao động.</p>
+        </div>
+        <div class="col-md-3 offset-md-1">
+          <h5 class="mb-3">Liên Kết Nhanh</h5>
+          <ul class="list-unstyled d-flex flex-column gap-2">
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="tiendo.html">Tiến Độ</a></li>
+            <li><a href="donggop.html">Đóng Góp</a></li>
+            <li><a href="lienhe.html">Liên Hệ</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5 class="mb-3">Địa Chỉ Liên Hệ</h5>
+          <p class="small text-muted-custom mb-1"><i class="bi bi-geo-alt me-2"></i>Thôn 5, Xã Tân Tiến, Huyện Krông Pắc, Tỉnh Đắk Lắk, Việt Nam</p>
+          <p class="small text-muted-custom mb-1"><i class="bi bi-telephone me-2"></i>+84 908 802 831</p>
+          <p class="small text-muted-custom"><i class="bi bi-envelope me-2"></i>thienhoaosb@yahoo.com</p>
+        </div>
+      </div>
+      <div class="text-center pt-4 mt-4 border-top border-secondary small">
+        &copy; 2026 Đan Viện Biển Đức Thiên Hòa. Bảo lưu mọi quyền.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let originalData = [];
+    let currentData = [];
+    let pageIndex = 1;
+    let pageSize = 10;
+    let sortColumnIndex = -1;
+    let sortAscending = true;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('assets/data/donations.csv')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('CSV file not found or empty');
+          }
+          return response.text();
+        })
+        .then(text => {
+          originalData = parseCSV(text);
+          if (originalData.length === 0) {
+            throw new Error('No records parsed');
+          }
+          
+          currentData = [...originalData];
+          
+          // Show elements and hide fallback alert
+          document.getElementById('tableControls').style.display = 'flex';
+          document.getElementById('tableWrapper').style.display = 'block';
+          document.getElementById('tablePagination').style.display = 'flex';
+          document.getElementById('fallbackAlert').style.display = 'none';
+          
+          renderTable();
+        })
+        .catch(err => {
+          console.log('Thông báo: Chờ dữ liệu bảng đóng góp:', err.message);
+          // Keep fallback alert visible (default state)
+        });
+    });
+
+    // Custom CSV Parser
+    function parseCSV(text) {
+      const lines = text.split('\n');
+      const result = [];
+      if (lines.length <= 1) return result;
+      
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        
+        let row = [];
+        let insideQuote = false;
+        let entry = '';
+        
+        for (let j = 0; j < lines[i].length; j++) {
+          let char = lines[i][j];
+          if (char === '"') {
+            insideQuote = !insideQuote;
+          } else if (char === ',' && !insideQuote) {
+            row.push(entry.trim());
+            entry = '';
+          } else {
+            entry += char;
+          }
+        }
+        row.push(entry.trim());
+        
+        if (row.length >= 4) {
+          result.push({
+            date: row[0],
+            name: row[1],
+            amount: parseInt(row[2]) || 0,
+            note: row[3] || ''
+          });
+        }
+      }
+      return result;
+    }
+
+    function renderTable() {
+      const body = document.getElementById('tableBody');
+      body.innerHTML = '';
+
+      if (currentData.length === 0) {
+        body.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">Không tìm thấy kết quả phù hợp.</td></tr>';
+        document.getElementById('tablePagination').innerHTML = '';
+        return;
+      }
+
+      const startIndex = (pageIndex - 1) * pageSize;
+      const endIndex = Math.min(startIndex + pageSize, currentData.length);
+      const visibleItems = currentData.slice(startIndex, endIndex);
+
+      visibleItems.forEach(item => {
+        let displayDate = item.date;
+        if (item.date) {
+          const parts = item.date.split('-');
+          if (parts.length === 3) {
+            displayDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+          }
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="small text-secondary">${displayDate}</td>
+          <td><strong class="text-dark">${item.name}</strong></td>
+          <td class="text-primary fw-semibold">${item.amount.toLocaleString('vi-VN')} đ</td>
+          <td class="small text-muted-custom font-serif"><em>${item.note}</em></td>
+        `;
+        body.appendChild(tr);
+      });
+
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const pag = document.getElementById('tablePagination');
+      pag.innerHTML = '';
+      
+      const totalPages = Math.ceil(currentData.length / pageSize);
+      if (totalPages <= 1) return;
+
+      const nav = document.createElement('nav');
+      const ul = document.createElement('ul');
+      ul.className = 'pagination pagination-sm mb-0';
+      
+      // Prev
+      const prevLi = document.createElement('li');
+      prevLi.className = `page-item ${pageIndex === 1 ? 'disabled' : ''}`;
+      prevLi.innerHTML = `<button class="page-link" onclick="goToPage(${pageIndex - 1})">‹</button>`;
+      ul.appendChild(prevLi);
+
+      // Pages
+      for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement('li');
+        li.className = `page-item ${i === pageIndex ? 'active' : ''}`;
+        li.innerHTML = `<button class="page-link" onclick="goToPage(${i})">${i}</button>`;
+        ul.appendChild(li);
+      }
+
+      // Next
+      const nextLi = document.createElement('li');
+      nextLi.className = `page-item ${pageIndex === totalPages ? 'disabled' : ''}`;
+      nextLi.innerHTML = `<button class="page-link" onclick="goToPage(${pageIndex + 1})">›</button>`;
+      ul.appendChild(nextLi);
+
+      nav.appendChild(ul);
+      pag.appendChild(nav);
+    }
+
+    function goToPage(page) {
+      pageIndex = page;
+      renderTable();
+    }
+
+    function filterTable() {
+      const query = document.getElementById('tableSearch').value.toLowerCase();
+      currentData = originalData.filter(item => 
+        item.name.toLowerCase().includes(query) || 
+        item.note.toLowerCase().includes(query) ||
+        item.date.includes(query)
+      );
+      pageIndex = 1;
+      renderTable();
+    }
+
+    function changePageSize() {
+      pageSize = parseInt(document.getElementById('pageSize').value);
+      pageIndex = 1;
+      renderTable();
+    }
+
+    function sortTable(columnIndex) {
+      if (sortColumnIndex === columnIndex) {
+        sortAscending = !sortAscending;
+      } else {
+        sortColumnIndex = columnIndex;
+        sortAscending = true;
+      }
+
+      // Reset indicators
+      for (let i = 0; i < 3; i++) {
+        const icon = document.getElementById(`sort-icon-${i}`);
+        if (icon) {
+          icon.className = 'bi bi-arrow-down-up small ms-1 text-muted';
+        }
+      }
+
+      const activeIcon = document.getElementById(`sort-icon-${columnIndex}`);
+      if (activeIcon) {
+        activeIcon.className = sortAscending ? 'bi bi-arrow-up small ms-1 text-primary' : 'bi bi-arrow-down small ms-1 text-primary';
+      }
+
+      currentData.sort((a, b) => {
+        let valA, valB;
+        if (columnIndex === 0) { // Date
+          valA = a.date;
+          valB = b.date;
+        } else if (columnIndex === 1) { // Name
+          valA = a.name.toLowerCase();
+          valB = b.name.toLowerCase();
+        } else if (columnIndex === 2) { // Amount
+          valA = a.amount;
+          valB = b.amount;
+        }
+
+        if (valA < valB) return sortAscending ? -1 : 1;
+        if (valA > valB) return sortAscending ? 1 : -1;
+        return 0;
+      });
+
+      pageIndex = 1;
+      renderTable();
+    }
+  </script>
+</body>
+</html>

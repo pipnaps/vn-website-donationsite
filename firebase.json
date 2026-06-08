@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "raw_assets/**",
+      "scripts/**",
+      ".agents/**",
+      "skills-lock.json"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
+  }
+}
