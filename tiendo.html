@@ -46,13 +46,12 @@
               <tr>
                 <th style="width: 120px;" class="text-center">Giai Đoạn</th>
                 <th>Hạng Mục Công Việc</th>
-                <th style="width: 200px;">Thời Gian Dự Kiến</th>
                 <th style="width: 180px;" class="text-center">Trạng Thái</th>
               </tr>
             </thead>
             <tbody id="scheduleTableBody">
               <tr>
-                <td colspan="4" class="text-center text-muted py-4">Đang tải lịch trình từ văn bản gốc...</td>
+                <td colspan="3" class="text-center text-muted py-4">Đang tải lịch trình từ văn bản gốc...</td>
               </tr>
             </tbody>
           </table>
@@ -65,7 +64,7 @@
   <section class="py-5 bg-white border-top">
     <div class="container">
       <h2 class="h3 text-primary mb-5 text-center font-serif">Nhật Ký Thi Công Thực Tế</h2>
-      <div id="timeline-container" class="timeline">
+      <div id="timeline-container" class="photo-grid">
         <p class="text-center text-muted py-4">Đang tải nhật ký hình ảnh tiến độ...</p>
       </div>
     </div>
@@ -108,7 +107,6 @@
             tr.innerHTML = `
               <td class="text-center font-monospace fw-bold text-primary">GĐ ${item.stage}</td>
               <td class="fw-semibold text-dark">${item.task}</td>
-              <td>${item.time}</td>
               <td class="text-center"><span class="badge-status rounded-pill">${item.status}</span></td>
             `;
             sBody.appendChild(tr);
@@ -117,7 +115,7 @@
         .catch(err => {
           console.error('Lỗi khi tải lịch trình:', err);
           document.getElementById('scheduleTableBody').innerHTML = 
-            '<tr><td colspan="4" class="text-center text-danger py-4"><i class="bi bi-exclamation-triangle me-2"></i>Không thể tải lịch trình kế hoạch thi công.</td></tr>';
+            '<tr><td colspan="3" class="text-center text-danger py-4"><i class="bi bi-exclamation-triangle me-2"></i>Không thể tải lịch trình kế hoạch thi công.</td></tr>';
         });
 
       // 2. Fetch and render photo journal timeline from gallery.json
@@ -133,30 +131,17 @@
           
           container.innerHTML = '';
           
-          data.forEach((item, index) => {
-            const isLeft = index % 2 === 0;
-            const itemClass = isLeft ? 'timeline-item left-item' : 'timeline-item right-item';
+          data.forEach((item) => {            
+            const gridItem = document.createElement('div');
+            gridItem.className = 'photo-grid-item';
             
-            let displayDate = item.date;
-            if (item.date) {
-              const parts = item.date.split('-');
-              if (parts.length === 3) {
-                displayDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
-              }
-            }
-            
-            const timelineItem = document.createElement('div');
-            timelineItem.className = itemClass;
-            
-            timelineItem.innerHTML = `
-              <div class="timeline-card">
-                <div class="timeline-date"><i class="bi bi-clock me-2"></i>${displayDate}</div>
-                <img src="${item.src}" alt="${item.caption}" class="timeline-img mb-3" onclick="triggerLightbox('${item.src}')">
-                <h4 class="h5 text-primary mb-0 font-serif">${item.caption}</h4>
+            gridItem.innerHTML = `
+              <div class="photo-grid-card">
+                <img src="${item.src}" alt="${item.caption}" class="photo-grid-img" loading="lazy" onclick="triggerLightbox('${item.src}')">
               </div>
             `;
             
-            container.appendChild(timelineItem);
+            container.appendChild(gridItem);
           });
         })
         .catch(err => {
