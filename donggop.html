@@ -8,6 +8,7 @@
   <!-- Bootstrap 5 & Icons CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" crossorigin="anonymous">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/custom.css">
   <style>
@@ -21,6 +22,9 @@
       border: 1px solid var(--color-border);
       padding: 0.5rem;
       background: #fff;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
     }
   </style>
 </head>
@@ -48,7 +52,7 @@
             <h3 class="h4 text-primary font-serif mb-3">Chuyển Khoản Ngân Hàng</h3>
             <p class="small text-muted mb-4">Quét mã VietQR dưới đây bằng ứng dụng ngân hàng di động của bạn để thực hiện giao dịch nhanh chóng.</p>
             
-            <img src="assets/images/banking_qr.jpg" class="vietqr-image img-fluid mx-auto mb-4" alt="Mã QR Chuyển Khoản Vietcombank">
+            <img src="assets/images/banking_qr.jpg" width="200" height="200" class="vietqr-image img-fluid mx-auto mb-4" alt="Mã QR Chuyển Khoản Vietcombank" onclick="triggerLightbox('assets/images/banking_qr.jpg')" style="cursor:zoom-in;">
             
             <div class="text-start border-top pt-3">
               <div class="d-flex justify-content-between mb-2">
@@ -79,12 +83,12 @@
             <h3 class="h4 text-primary font-serif mb-3">Các Hình Thức Khác</h3>
             <div class="text-start">
               <p class="d-flex align-items-center gap-2 mb-3">
-                <i class="bi bi-cash-stack text-primary fs-5"></i>
+                <i class="bi bi-cash-stack text-primary fs-5" aria-hidden="true"></i>
                 <strong>Tiền mặt</strong>
                 <span class="text-muted ms-auto">— Liên hệ trực tiếp</span>
               </p>
               <p class="d-flex align-items-center gap-2 mb-0">
-                <i class="bi bi-paypal text-primary fs-5"></i>
+                <i class="bi bi-paypal text-primary fs-5" aria-hidden="true"></i>
                 <strong>PayPal</strong>
                 <a href="https://www.paypal.com/pools/c/9pUxez8VKe" target="_blank" rel="noopener noreferrer" class="ms-auto btn btn-sm btn-outline-primary rounded-pill px-3">Gửi qua PayPal <i class="bi bi-box-arrow-up-right ms-1 small"></i></a>
               </p>
@@ -96,15 +100,15 @@
             <h3 class="h4 text-primary font-serif mb-3">Thông Tin Liên Hệ</h3>
             <div class="text-start">
               <p class="d-flex align-items-center gap-2 mb-2">
-                <i class="bi bi-person text-primary"></i>
+                <i class="bi bi-person text-primary" aria-hidden="true"></i>
                 <strong>Nguyễn Mạnh Tuấn</strong>
               </p>
               <p class="d-flex align-items-center gap-2 mb-2">
-                <i class="bi bi-envelope text-primary"></i>
+                <i class="bi bi-envelope text-primary" aria-hidden="true"></i>
                 <a href="mailto:surfi05@gmx.de" class="text-decoration-none">surfi05@gmx.de</a>
               </p>
               <p class="d-flex align-items-center gap-2 mb-0">
-                <i class="bi bi-whatsapp text-primary"></i>
+                <i class="bi bi-whatsapp text-primary" aria-hidden="true"></i>
                 <a href="https://wa.me/4915772869365" target="_blank" rel="noopener noreferrer" class="text-decoration-none">+49 1577 286 9365 (WhatsApp)</a>
               </p>
             </div>
@@ -120,8 +124,8 @@
             <div class="row g-3 align-items-center justify-content-between mb-4" id="tableControls" style="display:none;">
               <div class="col-sm-6 col-md-5">
                 <div class="input-group">
-                  <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search text-muted"></i></span>
-                  <input type="text" id="tableSearch" class="form-control border-start-0" placeholder="Tìm kiếm tên, ghi chú..." onkeyup="filterTable()">
+                  <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search text-muted" aria-hidden="true"></i></span>
+                  <input type="text" id="tableSearch" class="form-control border-start-0" placeholder="Tìm kiếm tên, ghi chú…" aria-label="Tìm kiếm ân nhân" onkeyup="filterTable()">
                 </div>
               </div>
               <div class="col-auto">
@@ -141,13 +145,13 @@
               <table class="table align-middle table-hover border-top">
                 <thead class="table-light">
                   <tr>
-                    <th onclick="sortTable(0)" style="cursor:pointer;">Ngày Đóng Góp <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-0"></i></th>
-                    <th onclick="sortTable(1)" style="cursor:pointer;">Ân Nhân / Họ và Tên <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-1"></i></th>
-                    <th onclick="sortTable(2)" style="cursor:pointer; width: 160px;">Số Tiền (VNĐ) <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-2"></i></th>
+                    <th onclick="sortTable(0)" style="cursor:pointer;">Ngày Đóng Góp <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-0" aria-hidden="true"></i></th>
+                    <th onclick="sortTable(1)" style="cursor:pointer;">Ân Nhân / Họ và Tên <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-1" aria-hidden="true"></i></th>
+                    <th onclick="sortTable(2)" style="cursor:pointer; width: 160px;">Số Tiền (VNĐ) <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-2" aria-hidden="true"></i></th>
                     <th>Ghi Chú</th>
                   </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody id="tableBody" aria-live="polite">
                   <!-- Rendered dynamically -->
                 </tbody>
               </table>
@@ -160,7 +164,7 @@
 
             <!-- Alert fallback if donations.csv is missing or empty -->
             <div class="alert alert-warning d-flex align-items-center gap-3 p-4 border-0 rounded-0" id="fallbackAlert">
-              <i class="bi bi-info-circle-fill text-warning fs-3"></i>
+              <i class="bi bi-info-circle-fill text-warning fs-3" aria-hidden="true"></i>
               <div>
                 <h6 class="alert-heading fw-bold mb-1">Danh sách đang được cập nhật</h6>
                 <p class="small text-muted mb-0">Đan viện đang xử lý số liệu danh sách đóng góp từ sổ cái và tệp dữ liệu gốc. Thông tin ân nhân ủng hộ sẽ được tự động hiển thị tại đây ngay sau khi hoàn thành cập nhật.</p>
@@ -173,6 +177,20 @@
       </div>
     </div>
   </section>
+
+  <!-- Lightbox Modal -->
+  <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-transparent border-0">
+        <div class="modal-header border-0 p-0 justify-content-end">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0 text-center">
+          <img src="" id="lightboxImage" class="img-fluid border shadow-lg" alt="Phóng to hình ảnh">
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer (loaded dynamically) -->
   <div id="footer-placeholder"></div>
@@ -285,7 +303,7 @@
         tr.innerHTML = `
           <td class="small text-secondary">${displayDate}</td>
           <td><strong class="text-dark">${item.name}</strong></td>
-          <td class="text-primary fw-semibold">${item.amount.toLocaleString('vi-VN')} đ</td>
+          <td class="text-primary fw-semibold tabular-nums">${item.amount.toLocaleString('vi-VN')} đ</td>
           <td class="small text-muted-custom font-serif"><em>${item.note}</em></td>
         `;
         body.appendChild(tr);
@@ -332,6 +350,14 @@
     function goToPage(page) {
       pageIndex = page;
       renderTable();
+    }
+
+    function triggerLightbox(src) {
+      const modalElement = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImage');
+      lightboxImg.src = src;
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
     }
 
     function filterTable() {
