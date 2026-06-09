@@ -26,6 +26,21 @@
     .tabular-nums {
       font-variant-numeric: tabular-nums;
     }
+    .sortable-th {
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+    }
+    .sortable-th:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
+      border-radius: 4px;
+    }
+    .clickable-img:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -36,7 +51,7 @@
   <!-- Title Section -->
   <section class="py-5 text-center bg-white border-bottom">
     <div class="container">
-      <h1 class="section-title h2 text-primary">Đóng Góp Xây Dựng Đan Viện</h1>
+      <h1 class="section-title h2 text-primary" style="text-wrap:balance;">Đóng Góp Xây Dựng Đan Viện</h1>
       <p class="text-muted col-lg-8 mx-auto">Mọi sự đóng góp và ủng hộ tài chính của quý vị đều được chuyển đến tài khoản chính thức của Đan Viện dưới sự quản lý minh bạch.</p>
     </div>
   </section>
@@ -52,7 +67,7 @@
             <h3 class="h4 text-primary font-serif mb-3">Chuyển Khoản Ngân Hàng</h3>
             <p class="small text-muted mb-4">Quét mã VietQR dưới đây bằng ứng dụng ngân hàng di động của bạn để thực hiện giao dịch nhanh chóng.</p>
             
-            <img src="assets/images/banking_qr.jpg" width="200" height="200" class="vietqr-image img-fluid mx-auto mb-4" alt="Mã QR Chuyển Khoản Vietcombank" onclick="triggerLightbox('assets/images/banking_qr.jpg')" style="cursor:zoom-in;">
+            <img src="assets/images/banking_qr.jpg" width="200" height="200" class="vietqr-image img-fluid mx-auto mb-4 clickable-img" alt="Mã QR Chuyển Khoản Vietcombank" onclick="triggerLightbox('assets/images/banking_qr.jpg')" onkeydown="if(event.key==='Enter'||event.key===' ')event.preventDefault(),triggerLightbox('assets/images/banking_qr.jpg')" tabindex="0" role="button" style="cursor:zoom-in;">
             
             <div class="text-start border-top pt-3">
               <div class="d-flex justify-content-between mb-2">
@@ -65,11 +80,11 @@
               </div>
               <div class="d-flex justify-content-between mb-2">
                 <span class="small text-muted">Số tài khoản:</span>
-                <strong class="text-dark">1908 8028 31</strong>
+                <strong class="text-dark" translate="no">1908 8028 31</strong>
               </div>
               <div class="d-flex justify-content-between mb-2">
                 <span class="small text-muted">SWIFT/BIC:</span>
-                <strong class="text-dark">BFTVVNVX</strong>
+                <strong class="text-dark" translate="no">BFTVVNVX</strong>
               </div>
               <div class="d-flex justify-content-between">
                 <span class="small text-muted">Nội dung chuyển:</span>
@@ -105,7 +120,7 @@
               </p>
               <p class="d-flex align-items-center gap-2 mb-2">
                 <i class="bi bi-envelope text-primary" aria-hidden="true"></i>
-                <a href="mailto:surfi05@gmx.de" class="text-decoration-none">surfi05@gmx.de</a>
+                <a href="mailto:surfi05@gmx.de" class="text-decoration-none" translate="no">surfi05@gmx.de</a>
               </p>
               <p class="d-flex align-items-center gap-2 mb-0">
                 <i class="bi bi-whatsapp text-primary" aria-hidden="true"></i>
@@ -145,9 +160,9 @@
               <table class="table align-middle table-hover border-top">
                 <thead class="table-light">
                   <tr>
-                    <th onclick="sortTable(0)" style="cursor:pointer;">Ngày Đóng Góp <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-0" aria-hidden="true"></i></th>
-                    <th onclick="sortTable(1)" style="cursor:pointer;">Ân Nhân / Họ và Tên <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-1" aria-hidden="true"></i></th>
-                    <th onclick="sortTable(2)" style="cursor:pointer; width: 160px;">Số Tiền (VNĐ) <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-2" aria-hidden="true"></i></th>
+                    <th tabindex="0" role="columnheader" class="sortable-th" onclick="sortTable(0)" onkeydown="if(event.key==='Enter'||event.key===' ')event.preventDefault(),sortTable(0)">Ngày Đóng Góp <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-0" aria-hidden="true"></i></th>
+                    <th tabindex="0" role="columnheader" class="sortable-th" onclick="sortTable(1)" onkeydown="if(event.key==='Enter'||event.key===' ')event.preventDefault(),sortTable(1)">Ân Nhân / Họ và Tên <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-1" aria-hidden="true"></i></th>
+                    <th tabindex="0" role="columnheader" class="sortable-th" onclick="sortTable(2)" onkeydown="if(event.key==='Enter'||event.key===' ')event.preventDefault(),sortTable(2)" style="width: 160px;">Số Tiền (VNĐ) <i class="bi bi-arrow-down-up small ms-1" id="sort-icon-2" aria-hidden="true"></i></th>
                     <th>Ghi Chú</th>
                   </tr>
                 </thead>
@@ -293,9 +308,9 @@
       visibleItems.forEach(item => {
         let displayDate = item.date;
         if (item.date) {
-          const parts = item.date.split('-');
-          if (parts.length === 3) {
-            displayDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+          const parsed = new Date(item.date + 'T00:00:00');
+          if (!isNaN(parsed.getTime())) {
+            displayDate = parsed.toLocaleDateString('vi-VN', {day:'2-digit',month:'2-digit',year:'numeric'});
           }
         }
 
